@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Даши 🫶</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050508;
+            color: #ff2e63;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff2e63;
+        }
+        .heart-container {
+            position: relative;
+            font-size: 9px;
+            line-height: 10px;
+            white-space: pre;
+            color: #ff0055;
+            text-shadow: 0 0 8px #ff0055, 0 0 15px #ff0055;
+            animation: pulse 1.2s infinite alternate ease-in-out;
+            user-select: none;
+            cursor: pointer;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.92); opacity: 0.85; }
+            100% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 15px #ff2e63); }
+        }
+        .subtext {
+            margin-top: 25px;
+            color: #cccccc;
+            font-size: 1rem;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Даша, это для тебя 🫶</h1>
+    <div class="heart-container" id="heart"></div>
+    <p class="subtext" id="msg">Нажми на сердечко ✨</p>
+
+    <script>
+        const text = " ДашаЯТебяЛюблю";
+        let index = 0;
+
+        function getChar() {
+            const char = text[index % text.length];
+            index++;
+            return char;
+        }
+
+        function drawHeart() {
+            let result = "";
+            for (let y = 1.3; y > -1.1; y -= 0.06) {
+                let line = "";
+                for (let x = -1.2; x < 1.2; x += 0.03) {
+                    let formula = Math.pow(x*x + y*y - 1, 3) - x*x * Math.pow(y, 3);
+                    if (formula <= 0) {
+                        line += getChar();
+                    } else {
+                        line += " ";
+                    }
+                }
+                result += line + "\n";
+            }
+            document.getElementById("heart").innerText = result;
+        }
+
+        drawHeart();
+
+        document.getElementById("heart").addEventListener("click", () => {
+            document.getElementById("msg").innerText = "Ты занимаешь самое важное место в моей жизни! ❤️";
+            document.getElementById("msg").style.color = "#ff5079";
+        });
+    </script>
+</body>
+</html>
